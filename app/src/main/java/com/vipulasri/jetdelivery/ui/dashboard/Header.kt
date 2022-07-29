@@ -1,54 +1,38 @@
 package com.vipulasri.jetdelivery.ui.dashboard
 
-import androidx.compose.Composable
-import androidx.ui.core.Text
-import androidx.ui.layout.LayoutGravity
-import androidx.ui.layout.LayoutPadding
-import androidx.ui.layout.Row
-import androidx.ui.material.TextButton
-import androidx.ui.material.ripple.Ripple
-import androidx.ui.res.dimensionResource
-import androidx.ui.text.font.FontWeight
-import androidx.ui.tooling.preview.Preview
-import androidx.ui.unit.dp
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.unit.dp
 import com.vipulasri.jetdelivery.R
-import com.vipulasri.jetdelivery.components.primaryText
-import com.vipulasri.jetdelivery.ui.themeTypography
 
 @Composable
 fun showHeader(title: String, hasMore: Boolean) {
     Row(
-        modifier = LayoutPadding(
-            top = 5.dp,
-            left = dimensionResource(id = R.dimen.padding),
-            right = dimensionResource(id = R.dimen.padding),
-            bottom = 5.dp
+        modifier = Modifier.padding(
+            PaddingValues(
+                top = 5.dp,
+                start = dimensionResource(id = R.dimen.padding),
+                end = dimensionResource(id = R.dimen.padding),
+                bottom = 5.dp
+            )
         )
     ) {
-        primaryText {
-            Text(
-                modifier = LayoutFlexible(1f).plus(LayoutGravity.Center),
-                text = title,
-                style = themeTypography.h6
-            )
-        }
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = title,
+        )
+    }
 
-        if (hasMore) {
-            TextButton {
-                Ripple(bounded = false) {
-                    Text(
-                        modifier = LayoutGravity.Center,
-                        text = "View All",
-                        style = themeTypography.caption.copy(fontWeight = FontWeight.W600)
-                    )
-                }
-            }
+    if (hasMore) {
+        TextButton(onClick = {}) {
+            Text(text = "View All")
         }
     }
-}
-
-@Preview
-@Composable
-private fun previewHeader() {
-    showHeader(title = "Popular Restaurants Near You", hasMore = true)
 }

@@ -9,11 +9,17 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("data.json")
-    suspend fun getDashboard(): Dashboard
+    @GET("1199ed96ed2d4b688ea981d2d989c883/raw/data-random-1")
+    suspend fun getRandomOneDashboard(): Dashboard
 
-    @GET("data-random.json")
-    suspend fun getRandomDashboard(): Dashboard
+    @GET("1c12ab1898d2fd06c1f730b9ecb624e4/raw/data-random-2")
+    suspend fun getRandomTwoDashboard(): Dashboard
+
+    @GET("ed57419d302efe9590642ac8bc94aa0f/raw/data-random-3")
+    suspend fun getRandomThreeDashboard(): Dashboard
+
+    @GET("990da06c9ccae28dbc61208a27133ceb/raw/data-random-4")
+    suspend fun getRandomFourDashboard(): Dashboard
 
 }
 
@@ -28,7 +34,7 @@ object NetworkClient {
         .client(okHttpClient)
 
     val service: ApiService by lazy {
-        retrofit.baseUrl("https://gist.githubusercontent.com/vipulasri/8bd2115e50fd73272ea8de08cd54b9d5/raw/")
+        retrofit.baseUrl("https://gist.githubusercontent.com/ahmedadeltito/")
             .build().create(ApiService::class.java)
     }
 

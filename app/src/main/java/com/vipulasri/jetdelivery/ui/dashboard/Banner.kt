@@ -1,62 +1,42 @@
 package com.vipulasri.jetdelivery.ui.dashboard
 
-import androidx.compose.Composable
-import androidx.ui.core.Alignment
-import androidx.ui.core.Clip
-import androidx.ui.core.Text
-import androidx.ui.foundation.DrawImage
-import androidx.ui.foundation.shape.DrawShape
-import androidx.ui.foundation.shape.RectangleShape
-import androidx.ui.foundation.shape.corner.RoundedCornerShape
-import androidx.ui.graphics.Color
-import androidx.ui.layout.Align
-import androidx.ui.layout.Container
-import androidx.ui.layout.LayoutPadding
-import androidx.ui.layout.LayoutWidth
-import androidx.ui.material.ripple.Ripple
-import androidx.ui.res.imageResource
-import androidx.ui.unit.dp
-import androidx.ui.unit.sp
-import com.vipulasri.jetdelivery.R
-import com.vipulasri.jetdelivery.components.image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.vipulasri.jetdelivery.network.model.Dashboard
-import com.vipulasri.jetdelivery.ui.themeTypography
 
 @Composable
 fun showBannerElement(item: Dashboard.Item.SubItem) {
-    Ripple(bounded = true) {
-        Container(width = 150.dp, height = 178.dp) {
-            Clip(shape = RoundedCornerShape(5.dp)) {
-                bannerImage(url = item.imageUrl)
-                item.title?.let {
-                    bannerText(title = it)
-                }
-            }
+    Column(
+        modifier = Modifier.size(140.dp).clip(shape = RoundedCornerShape(5.dp))
+    ) {
+        bannerImage(url = item.imageUrl)
+        item.title?.let {
+            bannerText(title = it)
         }
     }
 }
 
-
 @Composable
 private fun bannerImage(url: String) {
-    image(url)?.let {
-        DrawImage(it)
-    }?: DrawImage(image = imageResource(id = R.drawable.placeholder_banner))
+    AsyncImage(modifier = Modifier.size(80.dp), model = url, contentDescription = null)
 }
 
 @Composable
 private fun bannerText(title: String) {
-    Align(alignment = Alignment.BottomLeft) {
-        Container(
-            modifier = LayoutWidth.Fill, height = 50.dp,
-            alignment = Alignment.CenterLeft
-        ) {
-            DrawShape(shape = RectangleShape, color = Color.Black.copy(alpha = 0.3f))
-            Text(
-                text = title,
-                style = themeTypography.subtitle2.copy(color = Color.White, fontSize = 12.sp),
-                modifier = LayoutPadding(10.dp)
-            )
-        }
-    }
+    Text(
+        modifier = Modifier.fillMaxWidth().padding(PaddingValues(10.dp)),
+        text = title,
+    )
 }
